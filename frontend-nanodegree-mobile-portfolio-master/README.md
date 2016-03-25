@@ -14,7 +14,7 @@ Website Optimization Project
     ├── src                       # Dev Code with Pretty JS and HTML files
     ├── prod                    # Production `Minified` and `Uglified` files
     ├── GruntFile.js         
-    ├── package.json                 
+    ├── package.json 
     └── README.md
 
 and `src` and `prod` directory has following structure:
@@ -25,6 +25,17 @@ and `src` and `prod` directory has following structure:
 ├── index.html 
 └── pizza.html 
 
+### Project Setup###
+
+ - Copy the repo in your system and navigate to prod directory. 
+ - Double click on index.html.
+ - Press f12 on the keyboard. This will open the chrome developer window.
+ - Press Ctrl+R and this will load the time line in the developer window.
+ - Repeat the same step with Pizza.html.
+ - Start the time line recording and then scroll the page for scrolling performance.
+ - Click on the slider on the page for pizza resize performance.
+
+Further notes on timeline navigation of chrome can be found out here: [Chrome Time Line](https://developer.chrome.com/devtools/docs/timeline)
 
 ----------
 ### Page Load###
@@ -56,8 +67,8 @@ This depicts that there is a lot of time spend in receiving the data and also to
 
 ###Page Navigation###
 
-####Initial Observations####
-**Scroll Navigation:** As can be seen in the timeline record while scrolling the website, there is a lot of JANKS after the script `main.js` is executed. These janks were forcing multiple style recalculations and forcing the render tree creation at every iteration of recalculations on the document node.  It can be seen in the timeline that the function causing this is updatePositions() in main.js. 
+####Scroll Navigation####
+**Initial Observation:** As can be seen in the timeline record while scrolling the website, there is a lot of JANKS after the script `main.js` is executed. These janks were forcing multiple style recalculations and forcing the render tree creation at every iteration of recalculations on the document node.  It can be seen in the timeline that the function causing this is updatePositions() in main.js. 
 
 	   var items = document.querySelectorAll('.mover');
 		for (var i = 0; i < items.length; i++) {
@@ -93,4 +104,30 @@ This depicts that there is a lot of time spend in receiving the data and also to
  - **CSS3 Hardware Acceleration** Using the transform instead of setting the left position of element optimize the rendering path from layout, painting and Compositing to **Compositing ONLY**.
  - Using the DOM height and width No of pizza from a Magic No. 200 can be reduced to a smaller number. (47 in this case).
  - Removed the width and height setting of the image via JS and instead resized the image to these constant values helps rendering faster.
+
+#### Manipulating Element Action####
+**Initial Observation** 
+
+![Initial Pizza Resize Timeline](frontend-nanodegree-mobile-portfolio-master/data/1-InitialChangePizza.PNG)
+
+ - As can be seen in the timeline record while changing the pizza size, there is a lot of JANKS after the script `main.js`  is executed. These janks were forcing multiple style recalculations and forcing the render tree creation at every iteration of recalculations on the document node.  It can be seen in the timeline that the function causing this is resizePizzas() --> changePizzaSize() function. 
+ 
+ 
+
+     <pre> // Iterates through pizza elements on the page and changes their widths
+  function changePizzaSizes(size) {
+    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
+      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
+      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    }
+  } <code>
+      
+ - On each iterations elements are selected from the document.
+ - width is being set at each iteration forcing the browser to Layout, Paint and Composite the page.
+ 
+ ####Solution####
+ 
+ - Moved the constant calculations outside the loop.
+ - Leveraged the multiple CSS styling per class basis here. Instead of setting the width of each element inside the loop, the class of the elements have been changed  to small medium and large and in the CSS the styles have been defined. This helps the CSSOM calcualtions to be performed only once after the JS is executed.
 

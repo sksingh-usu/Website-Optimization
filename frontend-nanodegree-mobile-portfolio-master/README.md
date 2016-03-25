@@ -30,7 +30,7 @@ and `src` and `prod` directory has following structure:
 ### Initial Observations###
 
 #### Page Load ####
-![Page Load Results](/data/InitialTimeLine.PNG)
+![Page Load Results](/frontend-nanodegree-mobile-portfolio-master/data/1-Initial.PNG)
 
  
  

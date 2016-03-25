@@ -11,18 +11,18 @@ Website Optimization Project
  Following is the directory structure of the project which contains the Development and Production ready code for the project.
     .
     ├── node_modules                                                   
-    ├── src                      # Development files
-    ├── prod                     # Production files Minfied and Uglified
-    ├── gruntfile.js             
+    ├── src                      # Development files                                                   
+    ├── prod                     # Production files Minfied and Uglified                                                   
+    ├── gruntfile.js                                                                
     ├── package.json             
     └── README.md
 
 and `src` and `prod` directory has following structure:
 	.
-    ├── js                      # Javascript files
-    ├── images                  # Compressed Images
-    ├── css             		# CSS files
-    ├──	index.html
+    ├── js                      # Javascript files                                                   
+    ├── images                  # Compressed Images                                                   
+    ├── css             		# CSS files                                                   
+    ├──	index.html                                                   
     └── pizza.html
 	
 ### Project Setup###

@@ -1,0 +1,26 @@
+Observation in Initial Time Line -- Mobile/Desktop-- 28/30
+1. Big Differences between Document content Load(Blue Dashed line),Paint(Green Dashed Line) and Load Event Line(Red Dashed Line)
+This depicts that there is a lot of time spend in receiving the data and also to paint the data. This leads to the first hint of expensive resources being downloaded.
+2. Multiple Recalculations of the styles on the document node.
+3. Multiple Janks because of Analytics.js recalculating styles
+
+Solution:
+Image Compression and Resizing
+Result- Mobile/Desktop-- 40/53
+
+Style Sheet Optimization
+Huge gain
+Result- Mobile/Desktop-- 77/89
+
+Resource Optimization
+Removed the web fonts
+Result- Mobile/Desktop-- 80/89
+
+
+Jank left and that is due to analytics.js was manipulating DOM and so there were multiple recalculations and hence I deferred it by making it ASYNC
+Mobile/Desktop -- 94/95
+Loads and scripting function call moved beyond the load line
+
+
+
+ 

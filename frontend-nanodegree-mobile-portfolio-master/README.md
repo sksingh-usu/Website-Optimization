@@ -9,22 +9,22 @@ Website Optimization Project
 
 ###Project Structure###
  Following is the directory structure of the project which contains the Development and Production ready code for the project.
-.
-    ├── node_modules
-    ├── src                       # Dev Code with Pretty JS and HTML files
-    ├── prod                    # Production `Minified` and `Uglified` files
-    ├── GruntFile.js         
-    ├── package.json 
+    .
+    ├── node_modules                   
+    ├── src                      # Development files
+    ├── prod                     # Production files Minfied and Uglified
+    ├── gruntfile.js             
+    ├── package.json             
     └── README.md
 
 and `src` and `prod` directory has following structure:
-
-├── js
-├── css                      
-├── images                   
-├── index.html 
-└── pizza.html 
-
+	.
+    ├── js                      # Javascript files
+    ├── images                  # Compressed Images
+    ├── css             		# CSS files
+    ├──	index.html
+    └── pizza.html
+	
 ### Project Setup###
 
  - Copy the repo in your system and navigate to prod directory. 
@@ -41,7 +41,7 @@ Further notes on timeline navigation of chrome can be found out here: [Chrome Ti
 ### Page Load###
 
 #### Initial Observations####
-![Page Load Results](frontend-nanodegree-mobile-portfolio-master/data/InitialTimeLine.PNG). 
+![Page Load Results](/frontend-nanodegree-mobile-portfolio-master/data/InitialTimeLine.PNG). 
 **Page Insight Score: Mobile/Desktop: 28/30**
 
  - Big Differences between Document content Load(Blue Dashed line),Paint(Green Dashed Line) and Load Event Line(Red Dashed Line).
@@ -62,7 +62,7 @@ This depicts that there is a lot of time spend in receiving the data and also to
 **Deferred Render Blocking JS: ** Analytics.js was being loaded and causing a JANK as can be seen in the timeline image. This jank was causing the style recalculation on the document node causing a huge delay after content loading(Blue Dashed Line) on the page and actual painting of the page(Green Dashed Line). Applied the `Async` tag while loading the analytics.js and also moved the `script` tag to the bottom of the html towards the end of the `Body` tag. Due to this *Loads* and *scripting* function call moved beyond the load line.
 **Mobile/Desktop -- 94/95**
 
-![Post Optimization Results](frontend-nanodegree-mobile-portfolio-master/data/CompleteDefferedJS.PNG)
+![Post Optimization Results](/frontend-nanodegree-mobile-portfolio-master/data/CompleteDefferedJS.PNG)
 
 
 ###Page Navigation###
@@ -106,9 +106,10 @@ This depicts that there is a lot of time spend in receiving the data and also to
  - Removed the width and height setting of the image via JS and instead resized the image to these constant values helps rendering faster.
 
 #### Manipulating Element Action####
+
 **Initial Observation** 
 
-![Initial Pizza Resize Timeline](frontend-nanodegree-mobile-portfolio-master/data/1-InitialChangePizza.PNG)
+![Initial Pizza Resize Timeline](/frontend-nanodegree-mobile-portfolio-master/data/1-InitialChangePizza.PNG)
 
  - As can be seen in the timeline record while changing the pizza size, there is a lot of JANKS after the script `main.js`  is executed. These janks were forcing multiple style recalculations and forcing the render tree creation at every iteration of recalculations on the document node.  It can be seen in the timeline that the function causing this is resizePizzas() --> changePizzaSize() function. 
  

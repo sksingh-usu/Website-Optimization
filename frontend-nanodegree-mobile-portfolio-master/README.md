@@ -10,7 +10,7 @@ Website Optimization Project
 ###Project Structure###
  Following is the directory structure of the project which contains the Development and Production ready code for the project.
     .
-    ├── node_modules                   
+    ├── node_modules                                                   
     ├── src                      # Development files
     ├── prod                     # Production files Minfied and Uglified
     ├── gruntfile.js             
@@ -59,7 +59,7 @@ This depicts that there is a lot of time spend in receiving the data and also to
 **Resource Optimization:** Removed the google web fonts for Open-Sans and inlined the fonts using W3C recommended CSS Web Safe Font Combinations.
 *Result- Mobile/Desktop-- 80/89*
 
-**Deferred Render Blocking JS: ** Analytics.js was being loaded and causing a JANK as can be seen in the timeline image. This jank was causing the style recalculation on the document node causing a huge delay after content loading(Blue Dashed Line) on the page and actual painting of the page(Green Dashed Line). Applied the `Async` tag while loading the analytics.js and also moved the `script` tag to the bottom of the html towards the end of the `Body` tag. Due to this *Loads* and *scripting* function call moved beyond the load line.
+**Deferred Render Blocking JS:** Analytics.js was being loaded and causing a JANK as can be seen in the timeline image. This jank was causing the style recalculation on the document node causing a huge delay after content loading(Blue Dashed Line) on the page and actual painting of the page(Green Dashed Line). Applied the `Async` tag while loading the analytics.js and also moved the `script` tag to the bottom of the html towards the end of the `Body` tag. Due to this *Loads* and *scripting* function call moved beyond the load line.
 **Mobile/Desktop -- 94/95**
 
 ![Post Optimization Results](/frontend-nanodegree-mobile-portfolio-master/data/CompleteDefferedJS.PNG)
@@ -98,13 +98,16 @@ This depicts that there is a lot of time spend in receiving the data and also to
  - Hard Coding of the loop to 200 pizzas is not necessary as most of the pizzas are overlapping the way left and top positions of the pizzas are calculated.
  - Style setting  `elem.style.height = "100px";` and 		  `elem.style.width = "73.333px";` on each iteration is also a reason of JANK in CSSOM modelling.
 
-####Solution####
+#####Solution####
 
  - `Math.sin((document.body.scrollTop / 1250) + (i % 5));` moved the calcualtion outside the loop as it is literally selecting a value from an array of 5 values(i%5 can be 5 different values only and  document.body.scrollTop is a constant for each scroll event).
  - **CSS3 Hardware Acceleration** Using the transform instead of setting the left position of element optimize the rendering path from layout, painting and Compositing to **Compositing ONLY**.
  - Using the DOM height and width No of pizza from a Magic No. 200 can be reduced to a smaller number. (47 in this case).
  - Removed the width and height setting of the image via JS and instead resized the image to these constant values helps rendering faster.
 
+**Post Optimization Result-Scrolling**
+![Post Optimization Pizza Resize Timeline](/frontend-nanodegree-mobile-portfolio-master/data/withoutupdateFunctionCall.PNG) 
+ 
 #### Manipulating Element Action####
 
 **Initial Observation** 
@@ -131,4 +134,6 @@ This depicts that there is a lot of time spend in receiving the data and also to
  
  - Moved the constant calculations outside the loop.
  - Leveraged the multiple CSS styling per class basis here. Instead of setting the width of each element inside the loop, the class of the elements have been changed  to small medium and large and in the CSS the styles have been defined. This helps the CSSOM calcualtions to be performed only once after the JS is executed.
-
+ 
+ **Post Optmization Result**
+![Post Optimization Pizza Resize Timeline](/frontend-nanodegree-mobile-portfolio-master/data/resized.PNG)
